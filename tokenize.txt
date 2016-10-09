@@ -1,0 +1,102 @@
+use 5.010;
+use strict;
+use warnings;
+use diagnostics;
+BEGIN{
+	if ($] < 5.018) {
+		package experimental;
+		use warnings::register;
+	}
+}
+no warnings 'experimental';
+
+sub tokenize {
+	chomp(my $expr = shift);
+	my @res;
+        my $i=0;
+        my @resstring;
+        my @resstring1;
+        my $flag=0; 
+        my @chars=split //, $expr;
+        for my $c( @chars) {
+               next if $c =~ /^\s*$/;
+               given ($c){
+                       when (/^\s*$/) {}
+                       when (/\d/) { $res[i]=$c; $i++; $flag=1; }  # если значение не помен€етс€ у флага, то не найдено число, поэтому умрЄм.
+                       when (['.', '-', '*', '/', '+', 'e', '^', '(', ')']) {$res[i]=$c;$i++;}
+                          
+                       default {
+                        die "Bad : '$_', NaN";
+                               }
+                           }
+        if ($flag=0){
+         die "Bad : '$_' , No nubmers"; } 
+       
+        if (($res[0]=='.')&&($res[1]=='e'){
+                       die "Bad : '$_', NaN"; 
+                                          }
+        given ($res[0]){ 
+                         when (['.', '*', '/', 'e', '^',  ')']) {die "Bad : '$_', NaN";}
+                         defeault {}
+
+         @resstring=('.', '-', '*', '/', '+', 'e', '^'); # должно быть достаточно двух последовательно неправильно расположенных символов, поэтому завЄл дл€ сравнени€ два массива, а дальше жуткое сравнение. sad, but true
+        @resstring1=( '*', '/', '+', 'e', '^',')');
+      
+        my $l=0;
+        for (my $x=0; x<i-1; i++) {
+
+           
+              if ($res[i]=='(') {                      
+                     $l++                                     # тут провер€ем правильность скобок.
+                                }
+              elsif( $res[i]==')') {
+                          $l--     }
+              if ($l<0) {
+              die "Bad : '$_' , скобки не правильно расставлены";           
+                        }
+         if ($l>0) {
+              die "Bad : '$_' , скобки не правильно расставлены";           
+                        }
+            
+                              
+            
+                             
+                 
+           if ( ($res[i+1]=='.')&&(($res[i]=='.')||($res[i]=='e'))||($res[i]=='(') && (($res[i+1]=='e')||($res[i+1]=='*')||($res[i+1]=='/')||($res[i+1]=='^')||($res[i+1]==')') )|| ($res[i+1]=='-')&&($res[i`]=='-')&&($res[i+2]!=/\d/)){
+
+            die "Bad : '$_' , NaN";}
+
+          
+           if (($res[i]!=/\d/) && ($res[i+1]!=/\d/)) {
+              for my $c(@resstring) {
+                  for my $d (@resstring1){
+                    if (($res[i]!=$c) && ($res[i+1]!=$d)){        # использу€ массивы сравниваем два последовательных символа
+                       die "Bad : '$_' , NaN"; 
+                                                         }
+                                      }  
+                                                     }
+                                   }
+        
+
+                                        
+        for (my $x=1; x<i-2; i++) { 
+            if (($res[i]=='.')&&($res[i+1]=='e')&&($res[i]!)&&($res[i+2]!=/\d/)&&($res[i-1]!=/\d/)){  # провер€ем на правильность чисел с e.
+                        die "Bad : '$_' , NaN"; }
+             
+
+                                                  
+  
+         
+        
+            
+
+                
+
+                              
+
+	# ...
+
+	return \@res;
+}
+
+1;
